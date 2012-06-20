@@ -7,11 +7,10 @@ twixxy consists primarily of twisted log observer which can installed to forward
 calls to `log.msg` and `log.err` to the appropriate Twiggy log methods.
 
 Using with twistd
-~~~~~~~~~~~~~~~~~
+-----------------
 
 twixxy provides a log observer factory compatible with `twistd --logger`.
 
-::
     > twistd --logger=twixxy.observerFactory -n web --path=.
     2012-06-19T22:09:43Z:INFO:twisted:Log opened.
     2012-06-19T22:09:43Z:INFO:twisted:twistd 12.1.0 (/Users/dreid/.virtualenvs/twixxy/bin/python 2.7.1) starting up.
@@ -20,9 +19,8 @@ twixxy provides a log observer factory compatible with `twistd --logger`.
     2012-06-19T22:09:43Z:INFO:twisted:Starting factory <twisted.web.server.Site instance at 0x10b718fc8>
 
 Replacing Twisted's Logging without twistd.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-------------------------------------------
 
-example.py::
     import sys
     import twiggy
     from twisted.python import log
@@ -35,9 +33,8 @@ example.py::
     log.msg('Hello, World!')
 
 Using in conjunction with Twisted's logging.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--------------------------------------------
 
-example2.py::
     import sys
     import twiggy
     from twisted.python import log
