@@ -1,5 +1,4 @@
 import time
-from StringIO import StringIO
 
 import mock
 import twiggy
@@ -8,18 +7,12 @@ from twisted.trial.unittest import TestCase
 from twisted.python import log, failure
 
 from twixxy import TwiggyLoggingObserver
+from twixxy.tests.utils import stringIOTwiggySetup
 
 
 class TwiggyLoggingObserverTests(TestCase):
     def setUp(self):
-        self.out = StringIO()
-
-        twiggy.addEmitters((
-            '*',
-            twiggy.levels.DEBUG,
-            True,
-            twiggy.outputs.StreamOutput(twiggy.formats.line_format, stream=self.out)
-        ))
+        self.out = stringIOTwiggySetup()
 
         self.lp = log.LogPublisher()
         self.obs = TwiggyLoggingObserver()
