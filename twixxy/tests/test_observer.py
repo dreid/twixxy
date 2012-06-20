@@ -81,3 +81,9 @@ class TwiggyLoggingObserverTests(TestCase):
         self.lp.msg('hello', where='there')
         self.assertIn('where=there', self.out.getvalue())
 
+    def test_userSpecifiedLevel(self):
+        """
+        Logging with a logLevel argument invokes appropriate logger methods.
+        """
+        self.lp.msg('hello', logLevel=twiggy.levels.DEBUG)
+        self.assertIn('DEBUG', self.out.getvalue())

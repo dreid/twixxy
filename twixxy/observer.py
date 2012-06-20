@@ -23,6 +23,14 @@ def observerFactory():
 
 
 class TwiggyLoggingObserver(object):
+    _method_map = {
+        twiggy.levels.DEBUG: 'debug',
+        twiggy.levels.ERROR: 'error',
+        twiggy.levels.INFO: 'info',
+        twiggy.levels.WARNING: 'warning',
+        twiggy.levels.CRITICAL: 'critical'
+    }
+
     def __init__(self, loggerName=None):
         loggerName = loggerName or 'twisted'
         log.fields(loggerName=loggerName).debug('Created TwiggyLoggingObserver')
@@ -43,6 +51,9 @@ class TwiggyLoggingObserver(object):
         l = self._logger
 
         text = textFromEventDict(eventDict)
+
+        logLevel = eventDict.get('logLevel')
+
         isError = eventDict.get('isError', False)
         failure = eventDict.get('failure', None)
         why = eventDict.get('why', None)
@@ -53,7 +64,7 @@ class TwiggyLoggingObserver(object):
         if eventDict['system'] != '-':
             l = l.name(eventDict['system'])
 
-        filteredFields = ['message', 'format', 'isError',
+        filteredFields = ['message', 'format', 'isError', 'logLevel',
                           'failure', 'why', 'printed', 'system']
         for field in filteredFields:
             eventDict.pop(field, None)
@@ -68,4 +79,4 @@ class TwiggyLoggingObserver(object):
             else:
                 l.error(text)
         else:
-            l.info(text)
+            getattr(l, self._method_map.get(logLevel, 'info'))(text)

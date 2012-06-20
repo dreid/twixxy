@@ -9,7 +9,7 @@ calls to `log.msg` and `log.err` to the appropriate Twiggy log methods.
 Using with twistd
 ~~~~~~~~~~~~~~~~~
 
-twixxy providers a log observer factory compatible with `twistd --logger`.
+twixxy provides a log observer factory compatible with `twistd --logger`.
 
 ::
     > twistd --logger=twixxy.observerFactory -n web --path=.
