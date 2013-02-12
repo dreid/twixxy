@@ -1,6 +1,9 @@
 twixxy
 ======
 
+.. image:: https://secure.travis-ci.org/dreid/twixxy.png?branch=master
+    :target: http://travis-ci.org/dreid/twixxy
+
 twixxy - twiggy + twisted
 
 twixxy consists primarily of twisted log observer which can installed to
