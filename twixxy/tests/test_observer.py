@@ -37,7 +37,8 @@ class TwiggyLoggingObserverTests(TestCase):
         """
         Test error output.
         """
-        self.lp.msg(failure=failure.Failure(ValueError("That is bad.")), isError=True)
+        self.lp.msg(failure=failure.Failure(ValueError("That is bad.")),
+                    isError=True)
         self.assertIn("ERROR", self.out.getvalue())
 
     def test_formatString(self):
@@ -60,7 +61,9 @@ class TwiggyLoggingObserverTests(TestCase):
         """
         Test error output with failure and reason.
         """
-        self.lp.msg(failure=failure.Failure(ValueError("This is bad")), isError=True, why="Really Bad")
+        self.lp.msg(failure=failure.Failure(ValueError("This is bad")),
+                    isError=True,
+                    why="Really Bad")
         self.assertIn('ERROR', self.out.getvalue())
         self.assertIn('Really Bad', self.out.getvalue())
         self.assertIn('TRACE ValueError: This is bad', self.out.getvalue())
@@ -75,7 +78,8 @@ class TwiggyLoggingObserverTests(TestCase):
 
     def test_logsFields(self):
         """
-        Extra keyword arguments passed to log.msg should be passed to twiggy.log.fields.
+        Extra keyword arguments passed to log.msg should be passed to
+        twiggy.log.fields.
         """
         self.lp.msg('hello', where='there')
         self.assertIn('where=there', self.out.getvalue())
@@ -89,7 +93,8 @@ class TwiggyLoggingObserverTests(TestCase):
 
     def test_logErrWithReason(self):
         """
-        Logging with log.err and a reason should log the reason and the traceback.
+        Logging with log.err and a reason should log the reason and the
+        traceback.
         """
         try:
             1 / 0
@@ -101,7 +106,8 @@ class TwiggyLoggingObserverTests(TestCase):
 
     def test_logErrNoReason(self):
         """
-        Logging with log.err and no reason should log UnhandledError and the traceback.
+        Logging with log.err and no reason should log UnhandledError and the
+        traceback.
         """
         try:
             1 / 0

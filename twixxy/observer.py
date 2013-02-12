@@ -16,7 +16,9 @@ def observerFactory():
         '*',
         twiggy.levels.DEBUG,
         True,
-        twiggy.outputs.StreamOutput(twiggy.formats.line_format, stream=sys.stdout)
+        twiggy.outputs.StreamOutput(
+            twiggy.formats.line_format,
+            stream=sys.stdout)
     ))
     log.debug('observerFactory used to setup logging')
     return TwiggyLoggingObserver().emit
@@ -33,7 +35,8 @@ class TwiggyLoggingObserver(object):
 
     def __init__(self, loggerName=None):
         loggerName = loggerName or 'twisted'
-        log.fields(loggerName=loggerName).debug('Created TwiggyLoggingObserver')
+        log.fields(loggerName=loggerName).debug(
+            'Created TwiggyLoggingObserver')
         self._logger = twiggy.log.name(loggerName)
 
     def start(self):
