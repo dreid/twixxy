@@ -19,6 +19,12 @@ class TwiggyLoggingObserverTests(TestCase):
 
         self.lp.addObserver(self.obs.emit)
 
+        _msg = log.msg
+
+        log.msg = self.lp.msg
+
+        self.addCleanup(setattr, log, 'msg', _msg)
+
     def test_singleString(self):
         """
         Test simple output
@@ -80,3 +86,27 @@ class TwiggyLoggingObserverTests(TestCase):
         """
         self.lp.msg('hello', logLevel=twiggy.levels.DEBUG)
         self.assertIn('DEBUG', self.out.getvalue())
+
+    def test_logErrWithReason(self):
+        """
+        Logging with log.err and a reason should log the reason and the traceback.
+        """
+        try:
+            1 / 0
+        except:
+            log.err(_why='math')
+
+        self.assertIn('ERROR:twisted:math', self.out.getvalue())
+        self.assertIn('TRACE ZeroDivisionError', self.out.getvalue())
+
+    def test_logErrNoReason(self):
+        """
+        Logging with log.err and no reason should log UnhandledError and the traceback.
+        """
+        try:
+            1 / 0
+        except:
+            log.err()
+
+        self.assertIn('ERROR:twisted:Unhandled Error', self.out.getvalue())
+        self.assertIn('TRACE ZeroDivisionError', self.out.getvalue())

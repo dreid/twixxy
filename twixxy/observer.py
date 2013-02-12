@@ -77,6 +77,9 @@ class TwiggyLoggingObserver(object):
             if why:
                 l.error(why)
             else:
-                l.error(text)
+                # In this case textFromEventDict will have made text
+                # 'Unhandled Error\n{traceback}' which is more verbose
+                # than is necessary with twixxy.
+                l.error('Unhandled Error')
         else:
             getattr(l, self._method_map.get(logLevel, 'info'))(text)
